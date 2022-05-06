@@ -15,4 +15,4 @@ This is a speed test for languages.
 - v: for compile v
 - rustc: for compile rust
 
-(for now) interpreted langues aren't in the test but I'll include them soon!
+(for now) interpreted languages aren't in the test but I'll include them soon!
