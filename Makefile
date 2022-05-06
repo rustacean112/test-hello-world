@@ -1,16 +1,22 @@
-.SILENT: compile-java compile-c compile-cpp compile-fortran compile-js compile-lua compile-perl compile-python compile-ruby compile-rust compile-v compile-go compile-cobol compile-asm-with-dynamic-string compile-asm-with-static-string
+.SILENT: compile-java compile-c-gcc compile-cpp-gcc compile-fortran compile-js compile-lua compile-perl compile-python compile-ruby compile-rust compile-v compile-go compile-cobol compile-asm-with-dynamic-string compile-asm-with-static-string compile-cpp-clang compile-c-clang compile-all clean-bin
 
 compile-java: Hello.java
 	javac java/Hello.java -d bin
 
-compile-c: hello.c
-	gcc c/hello.c -o bin/"hello-c-gcc"
+compile-c-gcc:
+	CFLAGS="-O2 -march=skylake -pipe" gcc c/hello.c -o bin/"hello-c-gcc"
+	
+compile-c-clang:
+	CFLAGS="-O2 -march=skylake" clang c/hello.c -o bin/"hello-c-clang"
 	
 compile-cobol:
 	cobc -x -o bin/hello-cobol cobol/hello.cob
 	
-compile-cpp:
-	g++ cpp/hello.cpp -o "hello-cpp-gpp"
+compile-cpp-gcc:
+	CXXFLAGS="-O2 -march=skylake -pipe" g++ cpp/hello.cpp -o bin/"hello-cpp-gcc"
+	
+compile-cpp-clang:
+	CXXFLAGS="-O2 -march=skylake" clang++ cpp/hello.cpp -o bin/"hello-cpp-clang"
 	
 compile-fortran:
 	gfortran fortran/hello.f90 -o bin/"hello-fortran"
@@ -29,6 +35,23 @@ compile-asm-with-dynamic-string:
 
 compile-asm-with-static-string:
 	nasm -f elf64 asm/hello-optimized.asm && ld asm/hello-optimized.o -o bin/hello-asm-static-string && rm asm/hello-optimized.o
+
+compile-all:
+	nasm -f elf64 asm/hello-optimized.asm && ld asm/hello-optimized.o -o bin/hello-asm-static-string && rm asm/hello-optimized.o
+	nasm -f elf64 asm/hello.asm && ld asm/hello.o -o bin/hello-asm-string && rm asm/hello.o
+	v v/hello.v -o bin/"hello-v"
+	rustc rust/hello.rs -o bin/"hello-rust"
+	go build -o bin/"hello-go" go/hello.go
+	gfortran fortran/hello.f90 -o bin/"hello-fortran"
+	CXXFLAGS="-O2 -march=skylake" clang++ cpp/hello.cpp -o bin/"hello-cpp-clang"
+	CXXFLAGS="-O2 -march=skylake -pipe" g++ cpp/hello.cpp -o bin/"hello-cpp-gcc"
+	cobc -x -o bin/hello-cobol cobol/hello.cob
+	CFLAGS="-O2 -march=skylake" clang c/hello.c -o bin/"hello-c-clang"
+	CFLAGS="-O2 -march=skylake -pipe" gcc c/hello.c -o bin/"hello-c-gcc"
+	javac java/Hello.java -d bin
+
+clean-bin:
+	rm -rf bin/hello* && rm -rf bin/Hello*
 
 compile-js:
 	bash -c "time node javascript/hello.js"	

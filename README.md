@@ -3,6 +3,7 @@
 This is a speed test for languages.
 
 ## Dependincies
+
 - hyperfine: for benchmark
 - gfortran: for compile fortran
 - cobc: for compile cobol
@@ -13,3 +14,5 @@ This is a speed test for languages.
 - javac and java: for compile and run java
 - v: for compile v
 - rustc: for compile rust
+
+(for now) interpreted langues aren't in the test but I'll include them soon!
