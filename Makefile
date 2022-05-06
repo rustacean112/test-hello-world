@@ -37,8 +37,8 @@ compile-asm-with-static-string:
 	nasm -f elf64 asm/hello-static-string.asm && ld asm/hello-static-string.o -o bin/hello-asm-static-string && rm asm/hello-static-string.o
 
 compile-all:
-	nasm -f elf64 asm/hello-static-string && ld asm/hello-static-string.o -o bin/hello-asm-static-string && rm asm/hello-static-string.o
-	nasm -f elf64 asm/hello-dynamic-string && ld asm/hello-dynamic-string.o -o bin/hello-asm-dynamic-asm-string && rm asm/hello-dynamic-string.o
+	nasm -f elf64 asm/hello-static-string.asm && ld asm/hello-static-string.o -o bin/hello-asm-static-string && rm asm/hello-static-string.o
+	nasm -f elf64 asm/hello-dynamic-string.asm && ld asm/hello-dynamic-string.o -o bin/hello-asm-dynamic-asm-string && rm asm/hello-dynamic-string.o
 	v v/hello.v -o bin/"hello-v"
 	rustc rust/hello.rs -o bin/"hello-rust"
 	go build -o bin/"hello-go" go/hello.go
