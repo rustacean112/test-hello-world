@@ -31,14 +31,14 @@ compile-v:
 	v v/hello.v -o bin/"hello-v"
 	
 compile-asm-with-dynamic-string:
-	nasm -f elf64 asm/hello.asm && ld asm/hello.o -o bin/hello-asm-string && rm asm/hello.o
+	nasm -f elf64 asm/hello.asm && ld asm/hello.o -o bin/hello-asm-dynamic-asm-string && rm asm/hello.o
 
 compile-asm-with-static-string:
 	nasm -f elf64 asm/hello-optimized.asm && ld asm/hello-optimized.o -o bin/hello-asm-static-string && rm asm/hello-optimized.o
 
 compile-all:
 	nasm -f elf64 asm/hello-optimized.asm && ld asm/hello-optimized.o -o bin/hello-asm-static-string && rm asm/hello-optimized.o
-	nasm -f elf64 asm/hello.asm && ld asm/hello.o -o bin/hello-asm-string && rm asm/hello.o
+	nasm -f elf64 asm/hello.asm && ld asm/hello.o -o bin/hello-asm-dynamic-asm-string && rm asm/hello.o
 	v v/hello.v -o bin/"hello-v"
 	rustc rust/hello.rs -o bin/"hello-rust"
 	go build -o bin/"hello-go" go/hello.go
